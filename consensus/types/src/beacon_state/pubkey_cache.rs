@@ -1,7 +1,7 @@
 use crate::*;
 use rpds::HashTrieMapSync as HashTrieMap;
 
-type ValidatorIndex = usize;
+pub type ValidatorIndex = usize;
 
 #[allow(clippy::len_without_is_empty)]
 #[derive(Debug, PartialEq, Clone, Default)]

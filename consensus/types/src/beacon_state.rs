@@ -9,7 +9,7 @@ use derivative::Derivative;
 use ethereum_hashing::hash;
 use int_to_bytes::{int_to_bytes4, int_to_bytes8};
 use metastruct::{metastruct, NumFields};
-pub use pubkey_cache::PubkeyCache;
+pub use pubkey_cache::{PubkeyCache, ValidatorIndex};
 use safe_arith::{ArithError, SafeArith};
 use serde::{Deserialize, Serialize};
 use ssz::{ssz_encode, Decode, DecodeError, Encode};
