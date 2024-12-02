@@ -1,8 +1,6 @@
 use crate::*;
 use rpds::HashTrieMapSync as HashTrieMap;
 
-pub type ValidatorIndex = usize;
-
 #[allow(clippy::len_without_is_empty)]
 #[derive(Debug, PartialEq, Clone, Default)]
 pub struct PubkeyCache {
@@ -10,13 +8,13 @@ pub struct PubkeyCache {
     /// HashTrieMap len, as it does not increase when duplicate keys are added. Duplicate keys are
     /// used during testing.
     len: usize,
-    map: HashTrieMap<PublicKeyBytes, ValidatorIndex>,
+    map: HashTrieMap<PublicKeyBytes, usize>,
 }
 
 impl PubkeyCache {
     /// Returns the number of validator indices added to the map so far.
     #[allow(clippy::len_without_is_empty)]
-    pub fn len(&self) -> ValidatorIndex {
+    pub fn len(&self) -> usize {
         self.len
     }
 
@@ -24,7 +22,7 @@ impl PubkeyCache {
     ///
     /// The added index must equal the number of validators already added to the map. This ensures
     /// that an index is never skipped.
-    pub fn insert(&mut self, pubkey: PublicKeyBytes, index: ValidatorIndex) -> bool {
+    pub fn insert(&mut self, pubkey: PublicKeyBytes, index: usize) -> bool {
         if index == self.len {
             self.map.insert_mut(pubkey, index);
             self.len = self
@@ -38,7 +36,7 @@ impl PubkeyCache {
     }
 
     /// Looks up a validator index's by their public key.
-    pub fn get(&self, pubkey: &PublicKeyBytes) -> Option<ValidatorIndex> {
+    pub fn get(&self, pubkey: &PublicKeyBytes) -> Option<usize> {
         self.map.get(pubkey).copied()
     }
 }
